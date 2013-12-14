@@ -1,0 +1,6 @@
+package forseti2;
+
+struct health
+{
+    double   uptime;
+}
