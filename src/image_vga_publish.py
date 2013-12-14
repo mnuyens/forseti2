@@ -4,6 +4,8 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
+import time
+
 import lcm
 import forseti2
 
@@ -18,14 +20,15 @@ cv2.namedWindow('native')
 lc = lcm.LCM("udpm://239.255.76.67:7667?ttl=1")
 
 msg = forseti2.image_t()
-msg.channels = 3
-msg.utime = 0
 msg.width = 1920
 msg.height = 1080
-msg.size = 543330#115102 #640 * 480 * 3
 while True:
+	msg.utime = time.time()
 	retval, frame = vc.read()
-	msg.image = cv2.imencode('.jpg', frame)[1]
+	msg.image = cv2.imencode('.jpg',
+                             frame,
+                             (cv.CV_IMWRITE_JPEG_QUALITY, 90))[1]
+	msg.size = msg.image.shape[0]
 	lc.publish("sprocket/video1", msg.encode())
 	cv2.imshow('native', frame)
 	cv2.waitKey(1)
