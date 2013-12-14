@@ -15,9 +15,13 @@ def receive_image(channel, data):
     msg = forseti2.image_t.decode(data)
     # print("Received message on channel \"%s\"" % channel)
     frame = np.fromstring(msg.image, dtype=np.uint8)
-    frame2 = frame.reshape((480, 640, 3))
-    cv2.imshow('frame', frame2)
-    cv2.waitKey(1)
+    frame2 = cv2.imdecode(frame, cv2.CV_LOAD_IMAGE_COLOR)
+    #frame2 = frame.reshape((480, 640, 3))
+    try:
+        cv2.imshow('frame', frame2)
+        cv2.waitKey(1)
+    except:
+        print frame2
 
 sub = lc.subscribe("sprocket/video1", receive_image)
 try:
