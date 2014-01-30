@@ -1,0 +1,7 @@
+package forseti2;
+
+struct to_piemos
+{
+    boolean auton;
+    boolean enabled;
+}
