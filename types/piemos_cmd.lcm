@@ -6,4 +6,3 @@ struct piemos_cmd
     boolean auton;
     boolean enabled;
 }
-
