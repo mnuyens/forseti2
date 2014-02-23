@@ -43,7 +43,7 @@ class DispenserDisplay:
         self.colors = {0:(127, 127, 127),
                       fs2.dispenser_cmd.STATE_HELD:(255,0,0),
                       fs2.dispenser_cmd.STATE_RELEASED:(0,255,0)}
-        
+
         self._read_thread = threading.Thread(target=self._read_loop)
         self._read_thread.daemon = True
         self._draw_thread = threading.Thread(target=self._draw_loop)
@@ -54,11 +54,11 @@ class DispenserDisplay:
     def _draw_text(self, text, pos, color):
         label = self.myfont.render(text, 1, color)
         self.window.blit(label, pos)
-        
+
     def _read_loop(self):
         while True:
             self.lcm.handle()
-            
+
     def _draw_loop(self):
         while True:
             pygame.display.flip()
@@ -68,7 +68,7 @@ class DispenserDisplay:
     def start(self):
         self._read_thread.start()
         self._draw_thread.start()
-        
+
     def _dispenser_cmd_handler(self, channel, data):
         msg = fs2.dispenser_cmd.decode(data)
         if self.debug:
@@ -79,7 +79,7 @@ class DispenserDisplay:
             print("   state   = %s" % str(msg.state))
 
         self.state[msg.team] = msg.state
-            
+
     def _draw(self):
         self.window.fill((255,255,255))
         pygame.draw.rect(self.window, (255, 255, 200), (0, 0, 320, 480))
@@ -95,7 +95,7 @@ class DispenserDisplay:
                 # print tcoords
                 self._draw_text(txt, tcoords, (0,0,0))
 
-        
+
 if __name__ == '__main__':
     try:
         WIDTH, HEIGHT = (640, 480)

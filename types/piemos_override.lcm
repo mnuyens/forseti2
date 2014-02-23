@@ -1,0 +1,8 @@
+package forseti2;
+
+struct piemos_override
+{
+	header header;
+    int32_t team;
+    boolean override;
+}

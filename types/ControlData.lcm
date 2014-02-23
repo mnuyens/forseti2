@@ -1,0 +1,11 @@
+package forseti2;
+
+struct ControlData {
+  header header;
+  boolean TeleopEnabled;
+  boolean HaltRadio;
+  boolean AutonomousEnabled;
+  boolean RobotEnabled;
+  string Stage;
+  int32_t Time;
+}

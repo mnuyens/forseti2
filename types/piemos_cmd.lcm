@@ -5,4 +5,5 @@ struct piemos_cmd
 	header header;
     boolean auton;
     boolean enabled;
+    int32_t time;
 }
