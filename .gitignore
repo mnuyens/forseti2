@@ -41,5 +41,8 @@ nosetests.xml
 # LCM.jar
 lcm.jar
 
+# piemos configs
+configs/*
+
 # forseti2 lcm types
 forseti2/*

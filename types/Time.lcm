@@ -1,0 +1,9 @@
+package forseti2;
+
+struct Time {
+    header header;
+	int32_t game_time_so_far;
+	int32_t stage_time_so_far;
+	int32_t total_stage_time;
+	string stage_name;
+}

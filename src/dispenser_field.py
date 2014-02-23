@@ -18,7 +18,7 @@ class DispenserHW:
         self.team = team
         self.ser = ser
         self.debug = True
-        
+
     def _dispenser_cmd_handler(self, channel, data):
         msg = fs2.dispenser_cmd.decode(data)
         if self.debug:
@@ -36,7 +36,7 @@ class DispenserHW:
                     setpoint = 500
                 pololu_drive(self.ser, i, setpoint)
 
-        
+
 if __name__ == '__main__':
     try:
         lc = lcm.LCM("udpm://239.255.76.67:7667?ttl=1")
