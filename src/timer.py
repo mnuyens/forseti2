@@ -154,7 +154,7 @@ class MatchTimer(LCMNode):
 
     def run(self):
         while self.stage_index < len(self.stages):
-            time.sleep(0.3)
+            time.sleep(0.5)
             self.check_for_stage_change()
             self.match.time = int(self.match_timer.time())
             msg = forseti2.Time()
@@ -232,7 +232,7 @@ class ControlDataSender(Node):
 
     def _loop(self):
         while True:
-            time.sleep(0.5)
+            time.sleep(0.75)
             for i in range(len(self.match.teams)):
                 self.send(i + 1, self.match.teams[i])
 

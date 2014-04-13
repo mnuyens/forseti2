@@ -12,9 +12,10 @@ import settings
 import util
 import LCMNode
 
+Node = LCMNode.Node
 LCMNode = LCMNode.LCMNode
 
-class Schedule(LCMNode):
+class Schedule(Node):
 
     matches_dir = '../matches'
 
@@ -141,6 +142,10 @@ class Schedule(LCMNode):
         if self.current_match is not None and self.current_match in self.totals:
             self.totals[self.current_match]['alliance1'] = msg.blue_total
             self.totals[self.current_match]['alliance2'] = msg.gold_total
+
+    def _loop(self):
+        while True:
+            self.lc.handle()
 
 
 def main():

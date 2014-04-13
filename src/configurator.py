@@ -75,7 +75,7 @@ def do_config(lc, teams, gold_field_map_filename='../resources/field_mapping.jso
     #print('Field map', field_objects)
     gold_teams = len(teams)/2
     for i in range(len(teams)):
-        time.sleep(.5)
+        time.sleep(1)
         if (i >= gold_teams):
             send_team_config(lc, teams[i], i, gold_field_objects)
         else:
