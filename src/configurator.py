@@ -65,13 +65,21 @@ def do_reset(lc, args, teams):
     for i in range(len(teams)):
         send_team_reset(lc, teams[i], i + 1)
 
-def do_config(lc, teams, gold_field_map_filename='../resources/field_mapping.json', blue_field_map_filename='../resources/field_mapping.json'):
+def do_config(lc, teams, gold_field_map_filename='../resources/smallfieldmap.json', blue_field_map_filename='../resources/smallfieldmap.json'):
     gold_field_objects = '[]'
-    with open(gold_field_map_filename, 'r') as rfile:
-        gold_field_objects = rfile.read()
+    try:
+        with open(gold_field_map_filename, 'r') as rfile:
+            gold_field_objects = rfile.read()
+    except Exception as ex:
+        print(ex)
+        gold_field_objects = '[]'
     blue_field_objects = '[]'
-    with open(blue_field_map_filename, 'r') as rfile:
-        blue_field_objects = rfile.read()
+    try:
+        with open(blue_field_map_filename, 'r') as rfile:
+            blue_field_objects = rfile.read()
+    except Exception as ex:
+        print(ex)
+        gold_field_objects = '[]'
     #print('Field map', field_objects)
     gold_teams = len(teams)/2
     for i in range(len(teams)):
@@ -109,12 +117,16 @@ def get_team_name(num):
 
 def send_team_config(lc, num, idx, field_objects):
     data = ConfigData()
+    match = match_data()
     data.ConfigFile = get_config(num).replace('\t','').replace('\n', '').replace('\r', '')
-    data.IsBlueAlliance = idx <= 1
+    match.IsBlueAlliance = idx <= 1
     data.TeamNumber = int(num)
-    data.TeamName = get_team_name(num)
-    data.FieldObjects = field_objects.replace('\t','').replace('\n', '').replace('\r', '')
+    match.TeamNumber = int(num)
+    match.TeamName = get_team_name(num)
+    match.FieldObjects = field_objects.replace('\t','').replace('\n', '').replace('\r', '')
     lc.publish('PiEMOS' + str(idx) + '/Config', data.encode())
+    time.sleep(1)
+    lc.publish('piemos' + str(idx) + '/match', match.encode())
 
 def send_team_reset(lc, num, idx):
     data = CommandData()

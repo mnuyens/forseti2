@@ -1,0 +1,8 @@
+package forseti2;
+
+struct match_data {
+  boolean IsBlueAlliance;
+  int32_t TeamNumber;
+  string TeamName;
+  string FieldObjects;
+}

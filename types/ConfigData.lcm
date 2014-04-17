@@ -2,10 +2,5 @@ package forseti2;
 
 struct ConfigData {
   string ConfigFile;
-  boolean IsBlueAlliance;
   int32_t TeamNumber;
-  string TeamName;
-
-  // Might be deprecated in favor of defining an LCM format.
-  string FieldObjects;
 }
