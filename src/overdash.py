@@ -21,7 +21,7 @@ class Overrider(object):
         self.header = forseti2.header()
         self.header.seq = 0;
         self.header.time = time.time()
-        self.msg = forseti2.piemos_override()
+        self.msg = forseti2.robot_override()
 	self.msg.header = self.header
         self.msg.team = 0
         self.msg.override = True
@@ -40,7 +40,7 @@ class Overrider(object):
         self.msg.team = pos
         self.msg.override = kill
 	self.msg.header.time = time.time()
-        self.lc.publish("piemos/override", self.msg.encode())
+        self.lc.publish("robot/override", self.msg.encode())
 	self.msg.header.seq += 1
 
 

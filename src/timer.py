@@ -236,7 +236,7 @@ class ControlDataSender(Node):
             for i in range(len(self.match.teams)):
                 self.send(i + 1, self.match.teams[i])
 
-    def send(self, piemos_num, team):
+    def send(self, robot_num, team):
         #print('Sending')
         msg = forseti2.ControlData()
         msg.TeleopEnabled = self.match.stage in ['Teleop', 'Paused']
@@ -246,14 +246,14 @@ class ControlDataSender(Node):
         msg.Stage = self.match.stage
         msg.Time = self.match.time
         """
-        msg = forseti2.piemos_cmd()
+        msg = forseti2.robot_cmd()
         msg.header = forseti2.header()
         msg.header.seq = self.seq;
         self.seq += 1;
         msg.header.time = time.time()
         msg.auton = self.match.stage == 'Autonomous'
         msg.enabled = self.timer.match_timer.running"""
-        self.lc.publish('piemos/Control', msg.encode())
+        self.lc.publish('robot/Control', msg.encode())
 
 
 '''

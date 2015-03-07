@@ -105,12 +105,6 @@ class MatchControl(wx.Panel):
         vbox.Add(match_number, flag=wx.CENTER)
 
         teamSizer = wx.GridSizer(4, 2)
-        self.blue_items_ctrl = wx.TextCtrl(self, size=(dc.GetCharWidth() * 20,
-            dc.GetCharHeight()))
-	self.blue_items_ctrl.AppendText(DEFAULT_FIELD_ITEMS)
-        self.gold_items_ctrl = wx.TextCtrl(self, size=(dc.GetCharWidth() * 20,
-            dc.GetCharHeight()))
-	self.gold_items_ctrl.AppendText(DEFAULT_FIELD_ITEMS)
         self.team_panels = [
             TeamPanel(self.remote, 'A', 0, 'Unknown Team', BLUE, self),
             TeamPanel(self.remote, 'C', 0, 'Unknown Team', GOLD, self),
@@ -120,10 +114,10 @@ class MatchControl(wx.Panel):
         teamSizer.AddMany(
                 [wx.StaticText(self, label='Blue Team'),
                  wx.StaticText(self, label='Gold Team')] +
-                [(panel, 0) for panel in self.team_panels] +
-		[self.blue_items_ctrl, self.gold_items_ctrl])
+                [(panel, 0) for panel in self.team_panels]
+		)
         vbox.Add(teamSizer, flag=wx.CENTER)
-
+        time_box = wx.BoxSizer(wx.VERTICAL)
         buttons = wx.BoxSizer(wx.HORIZONTAL)
         self.init_button = wx.Button(self, label='Init')
         self.init_button.Bind(wx.EVT_BUTTON, self.do_init)
@@ -144,9 +138,10 @@ class MatchControl(wx.Panel):
         buttons.Add(self.go_button)
         buttons.Add(self.pause_button)
         buttons.Add(self.submit_button)
-        buttons.Add(self.time_text)
-        buttons.Add(self.stage_text)
-        buttons.Add(self.score_text)
+        time_box.Add(self.time_text)
+        time_box.Add(self.stage_text)
+        time_box.Add(self.score_text)
+        buttons.Add(time_box)
         vbox.Add(buttons, flag=wx.CENTER)
 
         self.SetSizer(vbox)
@@ -185,12 +180,6 @@ class MatchControl(wx.Panel):
             match.match_number = int(self.match_num_ctrl.GetValue())
         except ValueError:
             match.match_number = random.getrandbits(31)
-	try:
-            match.gold_items_loc = FIELD_ITEMS_FOLDER + str(self.gold_items_ctrl.GetValue())
-            match.blue_items_loc = FIELD_ITEMS_FOLDER + str(self.blue_items_ctrl.GetValue())
-        except ValueError:
-            match.gold_items_loc = FIELD_ITEMS_FOLDER + DEFAULT_FIELD_ITEMS
-            match.blue_items_loc = FIELD_ITEMS_FOLDER + DEFAULT_FIELD_ITEMS
         return match
 
     def set_match(self, match):
@@ -352,7 +341,7 @@ class Remote(object):
         self.do_time_ctrl('pause')
 
 def format_time(seconds):
-    return '{}:{:02}'.format(seconds // 60,
+    return '{:d}:{:02.1f}'.format(int(seconds // 60),
                              seconds % 60)
 
 
