@@ -1,8 +1,8 @@
 package forseti2;
 
 struct Time {
-	int32_t game_time_so_far;
-	int32_t stage_time_so_far;
-	int32_t total_stage_time;
+	float game_time_so_far;
+	float stage_time_so_far;
+	float total_stage_time;
 	string stage_name;
 }

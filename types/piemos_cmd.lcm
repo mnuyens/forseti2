@@ -6,5 +6,5 @@ struct piemos_cmd
     boolean auton;
     boolean enabled;
     boolean is_blue;
-    int32_t game_time;
+    float game_time;
 }
